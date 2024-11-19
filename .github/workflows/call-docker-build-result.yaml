@@ -20,16 +20,16 @@ on:
 
 jobs:
   docker-build:
-
-    name: Check Docker Hub Credentials
-      env:
+  
+  - name: Check Docker Hub Credentials
+    env:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-      run: |
+    run: |
           echo "Docker Hub Username: $DOCKERHUB_USERNAME"
           echo "Docker Hub Token: ${#DOCKERHUB_TOKEN} characters"
 
-    name: Result Call Docker Build
+  - name: Result Call Docker Build
     uses: dockersamples/.github/.github/workflows/reusable-docker-build.yaml@main
     permissions:
       contents: read
