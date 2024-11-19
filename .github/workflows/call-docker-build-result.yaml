@@ -19,27 +19,28 @@ on:
       - '.github/workflows/call-docker-build-result.yaml'
 
 jobs:
-  call-docker-build:
+  docker-build:
+
+    name: Check Docker Hub Credentials
+      env:
+        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      run: |
+          echo "Docker Hub Username: $DOCKERHUB_USERNAME"
+          echo "Docker Hub Token: ${#DOCKERHUB_TOKEN} characters"
 
     name: Result Call Docker Build
-
     uses: dockersamples/.github/.github/workflows/reusable-docker-build.yaml@main
-
     permissions:
       contents: read
       packages: write # needed to push docker image to ghcr.io
       pull-requests: write # needed to create and update comments in PRs
-    
     secrets:
-
       # Only needed if with:dockerhub-enable is true below
       dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
-
       # Only needed if with:dockerhub-enable is true below
       dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
-
     with:
-      
       ### REQUIRED
       ### ENABLE ONE OR BOTH REGISTRIES
       ### tell docker where to push.
